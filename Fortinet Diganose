@@ -1,0 +1,21 @@
+diagnose debug reset
+
+
+
+diagnose debug flow filter saddr 172.16.36.3
+
+
+diagnose debug flow show function-name enable
+
+
+diagnose debug flow show iprope enable
+
+
+diagnose debug console timestamp enable
+
+diagnose debug flow trace start 1000
+
+
+diagnose debug enable
+
+diagnose user quarantine list
