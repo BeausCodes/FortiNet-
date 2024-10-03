@@ -1,0 +1,33 @@
+Setup SSL VPN and confirm your WAN IP and port (or FQDN such as VPN.Companyname.com.au)
+
+Configure in Azure (enterprise app) (images)
+
+Import Cert into fortigate as a remote cert
+
+Run the below commands to change the name # of cert
+
+conf vpn certificate remote
+    show
+    rename REMOTE_Cert# to AzureSAML-CA
+end
+
+Setup SAML
+
+conf user saml
+    edit “SAML SSLVPN NAME”
+        set cert "SSL-VPN settings assigned Server Certificate"
+        set entity-id "https://<FortiGate IP address or FQDN>:<Custom SSL VPN port>/remote/saml/metadata"
+        set single-sign-on-url "https://<FortiGate IP address or FQDN>:<Custom SSL VPN port>/remote/saml/login"
+        set single-logout-url "https://<FortiGate IP address or FQDN>:<Custom SSL VPN port>/remote/saml/logout"
+        set idp-entity-id "<Azure AD identifier>"
+        set idp-single-sign-on-url "<Login URL>"
+        set idp-single-logout-url "<Logout URL>"
+        set idp-cert "<Certificate imported earlier>"
+        set user-name "username"
+        set group-name "group"
+    next
+end
+
+Create group in 365 and note down the ObjectID
+
+Create a group accociated with the above SAML configuration and Link to above group in 365
